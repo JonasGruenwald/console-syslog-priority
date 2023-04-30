@@ -2,7 +2,7 @@
 
 ![screenshot.png](screenshot.png)
 
-A very simple node.js library to prepend [syslog priority levels](https://en.wikipedia.org/wiki/Syslog#Severity_level)
+A very simple node.js package to prepend [syslog priority levels](https://en.wikipedia.org/wiki/Syslog#Severity_level)
 to all console logging calls.
 
 This does not send console logs to syslog or anything like that, it just prepends the stdout with the priority level.
@@ -23,5 +23,7 @@ const syslogPriority = require("console-syslog-priority")
 syslogPriority.enable();
 syslogPriority.enableDomain();
 ```
+
+Note that the use of domains is deprecated in node.js, so this is not recommended.
 
 

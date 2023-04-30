@@ -10,5 +10,13 @@
   "license": "MIT",
   "devDependencies": {
     "jest": "^29.5.0"
-  }
+  },
+  "repository": "https://github.com/JonasGruenwald/console-syslog-priority",
+  "keywords": [
+    "node-syslog",
+    "console",
+    "syslog",
+    "priority",
+    "highlighting"
+  ]
 }
