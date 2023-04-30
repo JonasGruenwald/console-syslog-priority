@@ -2,7 +2,7 @@ const path = require('path');
 const {spawn} = require('child_process');
 const lib = require("../index")
 
-it('Prepends priority levels to existing console functions vis stdout', done => {
+it('Prepends priority levels to existing console functions via stdout', done => {
   const exampleAppPath = path.join(
     __dirname,
     './overridesExample.js',
@@ -22,7 +22,7 @@ it('Prepends priority levels to existing console functions vis stdout', done => 
   })
 })
 
-it('Prepends priority levels to existing console functions vis stderr', done => {
+it('Prepends priority levels to existing console functions via stderr', done => {
   const exampleAppPath = path.join(
     __dirname,
     './overridesExample.js',
@@ -36,6 +36,24 @@ it('Prepends priority levels to existing console functions vis stderr', done => 
     const lines = stdErrLog.split('\n')
     expect(lines[0]).toEqual('<5>Logging using console.warn() function')
     expect(lines[1]).toEqual('<3>Logging using console.error() function')
+    testApp.kill()
+    done()
+  })
+})
+
+it('Prepends priority level to uncaught node errors with domain', done => {
+  const exampleAppPath = path.join(
+      __dirname,
+      './crashExample.js',
+  )
+  const testApp = spawn('node', [exampleAppPath])
+  let stdErrLog = ""
+  testApp.stderr.on('data', data => {
+    stdErrLog += data.toString()
+  })
+  testApp.stderr.on("close", () => {
+    const lines = stdErrLog.split('\n')
+    expect(lines[0]).toEqual('<3>Error: Some uncaught error in this node script')
     testApp.kill()
     done()
   })
